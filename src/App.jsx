@@ -25,7 +25,8 @@ export default function Board() {
         const name = target.name;
 
         setSquares(prev => {
-            return prev.map((element, idx) => {
+            const array = [...prev];
+            return array.map((element, idx) => {
                 const btn = `button-${idx + 1}`
                 const turns = turn.isPlayer1 ? "X" : "O";
                 const validTurn = !element.length;
