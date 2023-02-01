@@ -12,7 +12,6 @@ export default function Board() {
     const [squares, setSquares] = useState(defaultVal);
     const [turn, setTurn] = useState(() => defaultTurn);
     
-
     function handleClick(idx) {
         const newSquare = [...squares];
         const isPlayer1 = turn.isPlayer1 ? "X" : "O";
