@@ -6,18 +6,19 @@ import Square from './features/Square/'
 export default function Board() {
     const defaultVal = Array(9).fill("");
     const defaultTurn = {
-                            isPlayer1: true,
+                            isPlayer1: true, 
                         }
 
     const [squares, setSquares] = useState(defaultVal);
     const [turn, setTurn] = useState(() => defaultTurn);
-
-    useEffect(() => {
+    const count = squares.filter(element => element === "X" || element === "O").length;  
+    
+    useEffect(() => {        
         setTurn(prevValue => ({
             ...prevValue,
             isPlayer1: !prevValue.isPlayer1,
         }))
-    }, [squares])
+    }, [count])
 
     // event
     function handleClick(event) {
