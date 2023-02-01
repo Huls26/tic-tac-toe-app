@@ -14,17 +14,17 @@ export default function Board() {
     
 
     function handleClick(idx) {
-        setSquares(prevValue => {
-            const newSquare = [...prevValue];
-            let value = newSquare[idx];
+        const newSquare = [...squares];
+        const isPlayer1 = turn.isPlayer1 ? "X" : "O";
+        let value = newSquare[idx];
 
-            if (!value) {
-                newSquare[idx] = turn.isPlayer1 ? "X" : "O";
-            }
+        if (!value) {
+            newSquare[idx] = isPlayer1;
+            
+            setSquares(() => newSquare)
+            setTurn(prevValue => ({ isPlayer1: !prevValue.isPlayer1 }))    
+        }
 
-            return newSquare
-        })
-        setTurn(prevValue => ({ isPlayer1: !prevValue.isPlayer1 }))    
     }
 
     return (
