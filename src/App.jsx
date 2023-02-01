@@ -4,61 +4,47 @@ import "./App.css"
 import Square from './features/Square/'
 
 export default function Board() {
-    const defaultVal = Array(9).fill("");
+    const defaultVal = Array(9).fill(null);
     const defaultTurn = {
                             isPlayer1: true, 
                         }
 
     const [squares, setSquares] = useState(defaultVal);
     const [turn, setTurn] = useState(() => defaultTurn);
-    const count = squares.filter(element => element === "X" || element === "O").length;  
     
-    useEffect(() => {        
-        setTurn(prevValue => ({
-            ...prevValue,
-            isPlayer1: !prevValue.isPlayer1,
-        }))
-    }, [count])
 
-    // event
-    function handleClick(event) {
-        const target = event.target;
-        const name = target.name;
+    function handleClick(idx) {
+        setSquares(prevValue => {
+            const newSquare = [...squares];
+            let value = newSquare[idx];
 
-        setSquares(prev => {
-            const array = [...prev];
-            return array.map((element, idx) => {
-                const btn = `button-${idx + 1}`
-                const turns = turn.isPlayer1 ? "X" : "O";
-                const validTurn = !element.length;
+            if (!value) {
+                newSquare[idx] = turn.isPlayer1 ? "X" : "O";
+            }
 
-                if (btn === name && validTurn) {
-                    return turns
-                } 
-
-                return element
-            })
-        });
+            return newSquare
+        })
+        setTurn(prevValue => ({ isPlayer1: !prevValue.isPlayer1 }))    
     }
 
     return (
         <>
             <div className='board-row'>
-                <Square value={ squares[0] } handleClick={ handleClick } name="1" />
-                <Square value={ squares[1] } handleClick={ handleClick } name="2" />
-                <Square value={ squares[2] } handleClick={ handleClick } name="3" />
+                <Square value={ squares[0] } handleClick={ () => handleClick(0) } />
+                <Square value={ squares[1] } handleClick={ () => handleClick(1) } />
+                <Square value={ squares[2] } handleClick={ () => handleClick(2) } />
             </div>
 
             <div className='board-row'>
-                <Square value={ squares[3] } handleClick={ handleClick } name="4" />
-                <Square value={ squares[4] } handleClick={ handleClick } name="5" />
-                <Square value={ squares[5] } handleClick={ handleClick } name="6" />
+                <Square value={ squares[3] } handleClick={ () => handleClick(3) } />
+                <Square value={ squares[4] } handleClick={ () => handleClick(4) } />
+                <Square value={ squares[5] } handleClick={ () => handleClick(5) } />
             </div>
 
             <div className='board-row'>
-                <Square value={ squares[6] } handleClick={ handleClick } name="7" />
-                <Square value={ squares[7] } handleClick={ handleClick } name="8" />
-                <Square value={ squares[8] } handleClick={ handleClick } name="9" />
+                <Square value={ squares[6] } handleClick={ () => handleClick(6) } />
+                <Square value={ squares[7] } handleClick={ () => handleClick(7) } />
+                <Square value={ squares[8] } handleClick={ () => handleClick(8) } />
             </div>
         </>
       );
