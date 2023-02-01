@@ -15,7 +15,7 @@ export default function Board() {
 
     function handleClick(idx) {
         setSquares(prevValue => {
-            const newSquare = [...squares];
+            const newSquare = [...prevValue];
             let value = newSquare[idx];
 
             if (!value) {
