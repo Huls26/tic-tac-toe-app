@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import "./App.css"
 
 import Square from './features/Square/'
@@ -11,34 +11,31 @@ export default function Board() {
 
     const [squares, setSquares] = useState(defaultVal);
     const [turn, setTurn] = useState(() => defaultTurn);
-    const count = squares.filter(element => element === "X" || element === "O").length;  
     
-    useEffect(() => {        
-        setTurn(prevValue => ({
-            ...prevValue,
-            isPlayer1: !prevValue.isPlayer1,
-        }))
-    }, [count])
-
     // event
     function handleClick(event) {
         const target = event.target;
         const name = target.name;
+        const isValidTurn = target.innerText.length;
 
-        setSquares(prev => {
-            const array = [...prev];
-            return array.map((element, idx) => {
-                const btn = `button-${idx + 1}`
-                const turns = turn.isPlayer1 ? "X" : "O";
-                const validTurn = !element.length;
+        if (!isValidTurn) {
+            let newSquare = [...squares];
+            newSquare = newSquare.map((element, idx) => {
+                                    const btn = `button-${idx + 1}`
+                                    const turns = turn.isPlayer1 ? "X" : "O";
 
-                if (btn === name && validTurn) {
-                    return turns
-                } 
+                                    if (btn === name) {
+                                        return turns
+                                    } 
 
-                return element
-            })
-        });
+                                    return element
+                                })
+            setSquares(() => newSquare);
+            setTurn(prevValue => ({
+                ...prevValue,
+                isPlayer1: !prevValue.isPlayer1,
+            }))
+        }
     }
 
     return (
