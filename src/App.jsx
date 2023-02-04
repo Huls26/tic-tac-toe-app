@@ -38,25 +38,16 @@ export default function Board() {
         }
     }
 
+    // render 
+    const squaresMap = squares.map((element, idx) => {
+        return <Square key={ idx } value={ squares[idx] } handleClick={ handleClick } name={ idx + 1} />;
+    })
+
+    // fix bug
+
     return (
-        <>
-            <div className='board-row'>
-                <Square value={ squares[0] } handleClick={ handleClick } name="1" />
-                <Square value={ squares[1] } handleClick={ handleClick } name="2" />
-                <Square value={ squares[2] } handleClick={ handleClick } name="3" />
-            </div>
-
-            <div className='board-row'>
-                <Square value={ squares[3] } handleClick={ handleClick } name="4" />
-                <Square value={ squares[4] } handleClick={ handleClick } name="5" />
-                <Square value={ squares[5] } handleClick={ handleClick } name="6" />
-            </div>
-
-            <div className='board-row'>
-                <Square value={ squares[6] } handleClick={ handleClick } name="7" />
-                <Square value={ squares[7] } handleClick={ handleClick } name="8" />
-                <Square value={ squares[8] } handleClick={ handleClick } name="9" />
-            </div>
-        </>
+        <div className='board'>
+            { squaresMap }
+        </div>
       );
 }
