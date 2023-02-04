@@ -43,8 +43,6 @@ export default function Board() {
         return <Square key={ idx } value={ squares[idx] } handleClick={ handleClick } name={ idx + 1} />;
     })
 
-    // fix bug
-
     return (
         <div className='board'>
             { squaresMap }
