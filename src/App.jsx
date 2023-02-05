@@ -19,12 +19,35 @@ export default function Board() {
 
         // set row
         const row = setRow(makeArray);
-
-        console.log(row)
+        const horizontal = setHorizontal(row);
+        console.log(horizontal)
     }
 
     calculateWinner(squares)
 
+    // set horizontal
+    function setHorizontal(array) {
+        return array.reduce((horizontal, current, idx) => {
+            let setHorizontal = [];
+
+            for (const index in current) {
+                const currentItem = current[index];
+
+                if (!horizontal[index]) {
+                    setHorizontal = [...setHorizontal, [currentItem]];
+                } else {
+                    const getElement = horizontal[index];
+                    getElement[idx] = currentItem;
+
+                    setHorizontal = horizontal
+                }
+            }
+
+            return setHorizontal
+        }, [])
+    }
+ 
+    // set row
     function setRow(array) {
         return array.reduce((row, current, idx) => {
             const currentRowIdx = row.length - 1;
@@ -34,7 +57,7 @@ export default function Board() {
             } else {
                 const setRow = row[currentRowIdx];
                 setRow.push(current);
-                
+
                 return row
             }
         }, [])
