@@ -12,6 +12,36 @@ export default function Board() {
     const [squares, setSquares] = useState(defaultVal);
     const [turn, setTurn] = useState(() => defaultTurn);
     
+    // helper function
+    //calculateWinner
+    function calculateWinner(array) {
+        const makeArray = [...array];
+
+        // set row
+        const row = setRow(makeArray);
+
+        console.log(row)
+    }
+
+    calculateWinner(squares)
+
+    function setRow(array) {
+        return array.reduce((row, current, idx) => {
+            const currentRowIdx = row.length - 1;
+
+            console.log(row)
+            if (idx % 3 === 0) {
+                return [...row, [current]]
+            } else {
+                const setRow = row[currentRowIdx];
+                setRow.push(current);
+
+                console.log(setRow)
+                return row
+            }
+        }, [])
+    }
+
     // event
     function handleClick(event) {
         const target = event.target;
