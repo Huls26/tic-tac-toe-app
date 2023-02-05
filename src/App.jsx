@@ -29,14 +29,12 @@ export default function Board() {
         return array.reduce((row, current, idx) => {
             const currentRowIdx = row.length - 1;
 
-            console.log(row)
             if (idx % 3 === 0) {
                 return [...row, [current]]
             } else {
                 const setRow = row[currentRowIdx];
                 setRow.push(current);
-
-                console.log(setRow)
+                
                 return row
             }
         }, [])
