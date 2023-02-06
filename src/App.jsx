@@ -21,13 +21,14 @@ export default function Board() {
         const row = setRow(makeArray);
         const horizontal = setHorizontal(row);
         const diagonal = setDiagonal(makeArray);
+        const setOutcome = [row, horizontal, diagonal];
 
-        const winner = declareWinner(row);
+       return setOutcome.reduce((w, array) => {
+            const isWinner = declareWinner(array);
 
-        console.log(winner)
+            return isWinner ? isWinner : w
+        }, null)
     }
-
-    calculateWinner(squares)
 
     function declareWinner(array) {
         return [...array].reduce((winner, element) => {
@@ -112,6 +113,11 @@ export default function Board() {
         const target = event.target;
         const name = target.name;
         const isValidTurn = target.innerText.length;
+        const isGameover = calculateWinner(squares);
+
+        if (isGameover) {
+            return 
+        }
 
         if (!isValidTurn) {
             let newSquare = [...squares];
