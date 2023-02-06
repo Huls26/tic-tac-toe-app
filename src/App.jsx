@@ -22,10 +22,30 @@ export default function Board() {
         const horizontal = setHorizontal(row);
         const diagonal = setDiagonal(makeArray);
 
-        console.log(diagonal)
+        const winner = declareWinner(row);
+
+        console.log(winner)
     }
 
     calculateWinner(squares)
+
+    function declareWinner(array) {
+        return [...array].reduce((winner, element) => {
+            const raw = element.join("");
+            
+            if (raw.length > 2) {
+                const unique = new Set(raw);
+                
+                if (unique.size === 1) {
+                    const w = unique.values();
+
+                    return w.next().value
+                }
+            }
+
+            return winner
+        }, null)
+    }
 
     // set diagonal 
     function setDiagonal(array) {
