@@ -7,6 +7,7 @@ export default function Board() {
     const defaultVal = Array(9).fill("");
     const defaultTurn = {
                             isPlayer1: true, 
+                            isWinner: false,
                         }
 
     const [squares, setSquares] = useState(defaultVal);
@@ -144,8 +145,13 @@ export default function Board() {
         return <Square key={ idx } value={ squares[idx] } handleClick={ handleClick } name={ idx + 1} />;
     })
 
+    const gameover = calculateWinner(squares) ? `Winner ${ calculateWinner(squares) }` : null;
+    const playerTurn = turn.isPlayer1 ? "X" : "O";
+    const statusPlayer = gameover ? gameover : `Next player: ${ playerTurn }`
+
     return (
         <div className='board'>
+            <p className='status'>{ statusPlayer }</p>
             { squaresMap }
         </div>
       );

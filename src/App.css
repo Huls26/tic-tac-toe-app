@@ -80,8 +80,11 @@
   }
   
   .status {
+    font-size: 15px;
+    color: white;
     margin-bottom: 10px;
   }
+
   .game {
     display: flex;
     flex-direction: row;
