@@ -3,6 +3,8 @@ import "./App.css"
 
 import calculateWinner from "./utils/calculateWinner"
 import Square from './features/Square/'
+import Move from './features/Move/'
+import Squares from './features/Squares/'
 
 export default function Board() {
     const defaultVal = Array(9).fill("");
@@ -55,9 +57,9 @@ export default function Board() {
     const statusPlayer = gameover ? gameover : `Next player: ${ playerTurn }`
 
     return (
-        <div className='board'>
-            <p className='status'>{ statusPlayer }</p>
-            { squaresMap }
+        <div className='board-display'>
+           <Squares statusPlayer={ statusPlayer } squaresMap={ squaresMap } />
+           <Move />
         </div>
       );
 }

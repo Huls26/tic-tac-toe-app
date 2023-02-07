@@ -81,7 +81,6 @@
   
   .status {
     font-size: 15px;
-    color: white;
     margin-bottom: 10px;
   }
 
@@ -94,3 +93,25 @@
     margin-left: 20px;
   }
   
+  .board-display {
+    background-color: white;
+    border-radius: 1em;
+    padding: 1.5em 2em;
+    display: flex;
+  }
+
+  .move-display {
+    margin-top: 1.4em;
+    margin-right: 1em;
+    margin-left: 4em;
+  }
+
+  .previous-move {
+    margin-bottom: .3em;
+    padding: .3em .5em;
+    border-radius: 5px;
+  }
+
+  .previous-move:hover {
+    background-color: #e0dfdc;
+  }
