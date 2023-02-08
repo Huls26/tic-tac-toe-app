@@ -12,11 +12,35 @@ export default function Board() {
                             isPlayer1: true, 
                             isWinner: false,
                         }
+    const defaultMove = [];
 
     const [squares, setSquares] = useState(defaultVal);
     const [turn, setTurn] = useState(() => defaultTurn);
+    const [moves, setMoves] = useState(() => defaultMove);
     
     // event
+    function moveTo(idx) {       
+        if (idx >= 0 && !calculateWinner(squares)) {
+            const move = moves[idx];
+            const t = move.turn;
+            const m = move.move;
+
+            setSquares(() => [...m])
+            setTurn(prev => ({
+                ...prev,
+                isPlayer1: t,
+            }) )
+            setMoves(prev => prev.slice(1, idx + 2) )
+            return
+        }
+
+        if (idx < 0) {
+            setTurn(() => defaultTurn)
+            setSquares(() => defaultVal)
+            setMoves(() => defaultMove)
+        }
+    }
+
     function handleClick(event) {
         const target = event.target;
         const name = target.name;
@@ -24,14 +48,16 @@ export default function Board() {
         const isGameover = calculateWinner(squares);
 
         if (isGameover) {
+            setTurn(prev => ({ ...prev, isWinner: true }))
             return 
         }
 
         if (!isValidTurn) {
             let newSquare = [...squares];
+            const t = turn.isPlayer1;
             newSquare = newSquare.map((element, idx) => {
                                     const btn = `button-${idx + 1}`
-                                    const turns = turn.isPlayer1 ? "X" : "O";
+                                    const turns = t ? "X" : "O";
 
                                     if (btn === name) {
                                         return turns
@@ -44,6 +70,13 @@ export default function Board() {
                 ...prevValue,
                 isPlayer1: !prevValue.isPlayer1,
             }))
+            setMoves(prevValue => ([
+                ...prevValue, 
+                {
+                    move: [...newSquare],
+                    turn: !t,
+                }
+            ]))
         }
     }
 
@@ -59,7 +92,7 @@ export default function Board() {
     return (
         <div className='board-display'>
            <Squares statusPlayer={ statusPlayer } squaresMap={ squaresMap } />
-           <Move />
+           <Move onClick={ moveTo } moves={ moves } />
         </div>
       );
 }

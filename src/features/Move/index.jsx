@@ -1,10 +1,15 @@
-export default function Move() {
+import PrevMove from "./components/PrevMove";
+
+export default function Move({moves, onClick}) {
+    const displayMoves = moves.map((move, idx) => {
+       return <PrevMove prevMove={ `Go to move #${ idx + 1 }` } onClick={ onClick } idx={ idx } key={ `move-${idx}` }/>
+    })
+
     return (
         <div className='move-display'>
             <ol>
-                <li><button className='previous-move'>Go to game start</button></li>
-                <li><button className='previous-move'>Go to move #1</button></li>
-                <li><button className='previous-move'>Go to move #2</button></li>
+                <PrevMove prevMove={ "Go to game start" } onClick={ onClick } idx={ -1 }/>
+                { displayMoves }
             </ol>
     </div>
     )
